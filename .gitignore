@@ -1,0 +1,28 @@
+# Dependencies
+node_modules/
+
+# Python virtualenv
+.venv/
+__pycache__/
+*.pyc
+
+# SQLite database (ephemeral on cloud)
+backend/db.sqlite
+backend/db.sqlite-shm
+backend/db.sqlite-wal
+
+# Environment files
+.env
+.env.local
+.env.production
+
+# Next.js build output
+frontend/.next/
+frontend/out/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
