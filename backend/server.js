@@ -1,5 +1,3 @@
-// server.js
-// Express API backend for News Pulse - Async SQLite Version
 
 const express = require('express');
 const cors = require('cors');
@@ -13,7 +11,7 @@ const { v4: uuidv4 } = require('uuid');
 const app = express();
 const PORT = process.env.PORT || 5000;
 
-// Allow local dev + production frontend (set FRONTEND_URL env var on Render)
+
 const allowedOrigins = [
   'http://localhost:3000',
   process.env.FRONTEND_URL,
@@ -21,7 +19,7 @@ const allowedOrigins = [
 
 app.use(cors({
   origin: (origin, callback) => {
-    // Allow requests with no origin (curl, Postman, server-to-server)
+   
     if (!origin) return callback(null, true);
     if (allowedOrigins.includes(origin)) return callback(null, true);
     callback(new Error(`CORS: origin ${origin} not allowed`));
@@ -34,7 +32,7 @@ const SCHEMA_PATH = path.join(__dirname, 'schema.sql');
 
 let db;
 
-// Initialize database connection
+
 async function initDb() {
     try {
         db = await open({
@@ -42,10 +40,10 @@ async function initDb() {
             driver: sqlite3.Database
         });
         
-        // Enable WAL mode for better concurrency
+ 
         await db.exec('PRAGMA journal_mode = WAL');
         
-        // Check if tables exist, if not create them
+        
         const tablesExist = await db.get("SELECT name FROM sqlite_master WHERE type='table' AND name='articles'");
         if (!tablesExist) {
             console.log("Database empty. Initializing schema...");
@@ -61,7 +59,6 @@ async function initDb() {
     }
 }
 
-// Spawn Python process for scraping & clustering
 async function triggerIngest(jobId) {
     const pythonExe = process.platform === 'win32' 
         ? path.join(__dirname, '.venv', 'Scripts', 'python.exe') 
@@ -111,9 +108,7 @@ async function triggerIngest(jobId) {
     });
 }
 
-// --- Endpoints ---
 
-// 1. GET /api/clusters - Retrieve list of clusters with summary stats
 app.get('/api/clusters', async (req, res) => {
     try {
         const clusters = await db.all(`
@@ -141,7 +136,7 @@ app.get('/api/clusters', async (req, res) => {
     }
 });
 
-// 2. GET /api/clusters/:id - Full cluster detail with chronological articles
+
 app.get('/api/clusters/:id', async (req, res) => {
     const { id } = req.params;
     try {
@@ -161,7 +156,7 @@ app.get('/api/clusters/:id', async (req, res) => {
     }
 });
 
-// 3. GET /api/timeline - Format data specifically for plotting
+
 app.get('/api/timeline', async (req, res) => {
     try {
         const timelineData = await db.all(`
@@ -197,10 +192,10 @@ app.get('/api/timeline', async (req, res) => {
     }
 });
 
-// 4. POST /api/ingest/trigger - Trigger Python scraper
+
 app.post('/api/ingest/trigger', async (req, res) => {
     try {
-        // Check if an ingest job is already running
+       
         const activeJob = await db.get("SELECT id FROM ingest_jobs WHERE status IN ('pending', 'running')");
         if (activeJob) {
             return res.json({ jobId: activeJob.id, status: 'already_running' });
@@ -208,10 +203,10 @@ app.post('/api/ingest/trigger', async (req, res) => {
         
         const jobId = uuidv4();
         
-        // Save job record
+  
         await db.run("INSERT INTO ingest_jobs (id, status) VALUES (?, ?)", jobId, 'running');
         
-        // Trigger subprocess asynchronously
+  
         triggerIngest(jobId);
         
         res.status(202).json({ jobId, status: 'running' });
@@ -221,7 +216,7 @@ app.post('/api/ingest/trigger', async (req, res) => {
     }
 });
 
-// 5. GET /api/ingest/status/:jobId - Poll ingestion job status
+
 app.get('/api/ingest/status/:jobId', async (req, res) => {
     const { jobId } = req.params;
     try {
@@ -236,7 +231,7 @@ app.get('/api/ingest/status/:jobId', async (req, res) => {
     }
 });
 
-// Serve DB stats on root
+
 app.get('/api', async (req, res) => {
     try {
         const articleCountResult = await db.get("SELECT COUNT(*) as count FROM articles");
@@ -253,7 +248,7 @@ app.get('/api', async (req, res) => {
     }
 });
 
-// Start DB connection then listen
+
 initDb().then(() => {
     app.listen(PORT, () => {
         console.log(`News Pulse API server running on http://localhost:${PORT}`);
