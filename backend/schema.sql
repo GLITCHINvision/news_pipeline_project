@@ -1,5 +1,4 @@
--- schema.sql
--- SQLite Database schema for News Pulse
+
 
 CREATE TABLE IF NOT EXISTS clusters (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -22,7 +21,7 @@ CREATE TABLE IF NOT EXISTS articles (
 
 CREATE TABLE IF NOT EXISTS ingest_jobs (
     id TEXT PRIMARY KEY,
-    status TEXT NOT NULL, -- 'pending', 'running', 'completed', 'failed'
+    status TEXT NOT NULL, 
     error TEXT,
     created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
     updated_at DATETIME DEFAULT CURRENT_TIMESTAMP
