@@ -182,7 +182,7 @@ npm run dev
 
 Once both servers are running:
 
-1. Open **http://localhost:3000** in your browser
+1. Open **https://news-pipeline-project.vercel.app/** in your browser
 2. Click **"Refresh Feeds"** in the top-right corner
 3. Watch the progress strip — the Python scraper fetches ~70 articles, extracts full text, clusters them, and saves to the DB
 4. The timeline populates automatically when ingestion completes (~30–60 seconds)
