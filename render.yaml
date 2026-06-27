@@ -3,12 +3,18 @@ services:
     name: news-pulse-backend
     env: node
     rootDir: backend
-    buildCommand: ([ -f package.json ] || cd backend) && npm install && python -m venv .venv && .venv/bin/pip install -r requirements.txt
-    startCommand: ([ -f server.js ] || cd backend) && node server.js
+
+    buildCommand: |
+      npm install
+      python -m venv .venv
+      .venv/bin/pip install -r requirements.txt
+
+    startCommand: node server.js
+
     envVars:
-      - key: PORT
-        value: 5000
       - key: NODE_ENV
         value: production
+      - key: PORT
+        value: 5000
       - key: FRONTEND_URL
-        sync: false   # Set this manually in Render dashboard to your Vercel URL
+        sync: false
