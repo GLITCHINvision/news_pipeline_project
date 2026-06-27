@@ -1,4 +1,4 @@
-﻿# 📰 NewsPulse — Real-Time Topic-Clustered News Timeline
+﻿#  NewsPulse — Real-Time Topic-Clustered News Timeline
 
 > A full-stack news aggregation platform that automatically groups breaking stories from multiple sources into topic clusters and visualises them on an interactive timeline.
 
@@ -10,7 +10,7 @@
 
 ---
 
-## 🌟 What I Built
+##  What I Built
 
 NewsPulse is a **news intelligence dashboard** that:
 
@@ -24,7 +24,7 @@ The key idea: instead of showing you a raw list of headlines, you can **see at a
 
 ---
 
-## 🧠 How I Built It
+##  How I Built It
 
 ### The Problem
 Most news aggregators show you a flat chronological list. I wanted to answer: *"What are the biggest stories right now, across all sources, and how have they evolved over time?"*
@@ -78,7 +78,7 @@ Articles → TF-IDF matrix → Cosine similarity → Threshold grouping → Clus
 
 ---
 
-## 🛠️ Tools & Technologies
+##  Tools & Technologies
 
 ### Frontend
 | Tool | Version | Purpose |
@@ -120,7 +120,7 @@ Articles → TF-IDF matrix → Cosine similarity → Threshold grouping → Clus
 
 ---
 
-## 🚀 How to Run Locally
+##  How to Run Locally
 
 ### Prerequisites
 - **Node.js** 18 or higher — [Download](https://nodejs.org)
@@ -158,7 +158,7 @@ pip install -r requirements.txt
 node server.js
 ```
 
-✅ Backend runs at **http://localhost:5000**
+ Backend runs at **https://news-pulse-backend-cvvv.onrender.com**
 
 The database (`db.sqlite`) is created automatically on first run. The schema is initialised from `schema.sql` if tables don't exist yet.
 
@@ -176,7 +176,7 @@ npm install
 npm run dev
 ```
 
-✅ Frontend runs at **http://localhost:3000**
+ Frontend runs at **https://news-pipeline-project.vercel.app/**
 
 ### 4. Ingest News Data
 
@@ -189,7 +189,7 @@ Once both servers are running:
 
 ---
 
-## 📁 Project Structure
+##  Project Structure
 
 ```
 news_pipeline_project/
@@ -221,7 +221,7 @@ news_pipeline_project/
 
 ---
 
-## 🌐 API Reference
+##  API Reference
 
 | Method | Endpoint | Description |
 |---|---|---|
@@ -234,7 +234,7 @@ news_pipeline_project/
 
 ---
 
-## ☁️ Deployment
+##  Deployment
 
 | Service | Platform | Notes |
 |---|---|---|
@@ -261,6 +261,6 @@ See [`render.yaml`](./render.yaml) for the full Render service configuration.
 
 ---
 
-## 📝 License
+##  License
 
 MIT — feel free to use, modify, and distribute.
