@@ -503,7 +503,7 @@ export default function NewsPulse() {
 
         {/* ══ LIVE TICKER ══ */}
         <div style={{
-          background:'var(--text-1)', color:'#F1F5F9',
+          background:'#0F172A', color:'#F1F5F9',
           overflow:'hidden', userSelect:'none', flexShrink:0
         }}>
           <div style={{
@@ -520,12 +520,12 @@ export default function NewsPulse() {
             </div>
             <div style={{ flex:1, overflow:'hidden', padding:'7px 0' }}>
               {tickerItems.length > 0 ? (
-                <div className="ticker-track" style={{ fontSize:11, color:'rgba(241,245,249,.5)', fontWeight:500 }}>
+                <div className="ticker-track" style={{ fontSize:11, color:'rgba(241,245,249,.75)', fontWeight:500 }}>
                   <span>{tickerItems.join('   ·   ')}</span>
                   <span style={{ paddingLeft:80 }} aria-hidden>{tickerItems.join('   ·   ')}</span>
                 </div>
               ) : (
-                <span style={{ fontSize:11, color:'rgba(241,245,249,.3)', paddingLeft:16 }}>
+                <span style={{ fontSize:11, color:'rgba(241,245,249,.4)', paddingLeft:16 }}>
                   Awaiting feeds — click Refresh to ingest news
                 </span>
               )}
