@@ -3,7 +3,7 @@ services:
     name: news-pulse-backend
     env: node
     rootDir: backend
-    buildCommand: npm install && pip install -r requirements.txt
+    buildCommand: npm install && python -m venv .venv && .venv/bin/pip install -r requirements.txt
     startCommand: node server.js
     envVars:
       - key: PORT

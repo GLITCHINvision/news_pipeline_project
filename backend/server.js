@@ -12,9 +12,12 @@ const app = express();
 const PORT = process.env.PORT || 5000;
 
 
+const rawFrontendUrl = process.env.FRONTEND_URL;
+const normalizedFrontendUrl = rawFrontendUrl ? rawFrontendUrl.replace(/\/$/, '') : null;
+
 const allowedOrigins = [
   'http://localhost:3000',
-  process.env.FRONTEND_URL,
+  normalizedFrontendUrl,
 ].filter(Boolean);
 
 app.use(cors({
@@ -42,6 +45,7 @@ async function initDb() {
         
  
         await db.exec('PRAGMA journal_mode = WAL');
+        await db.exec('PRAGMA busy_timeout = 10000');
         
         
         const tablesExist = await db.get("SELECT name FROM sqlite_master WHERE type='table' AND name='articles'");
@@ -60,9 +64,15 @@ async function initDb() {
 }
 
 async function triggerIngest(jobId) {
-    const pythonExe = process.platform === 'win32' 
+    const venvPython = process.platform === 'win32' 
         ? path.join(__dirname, '.venv', 'Scripts', 'python.exe') 
         : path.join(__dirname, '.venv', 'bin', 'python');
+        
+    let pythonExe = venvPython;
+    if (!fs.existsSync(venvPython)) {
+        console.log(`[Job ${jobId}] Virtual environment python not found at ${venvPython}. Falling back to system python...`);
+        pythonExe = process.platform === 'win32' ? 'python' : 'python3';
+    }
         
     const scriptPath = path.join(__dirname, 'ingest.py');
     
