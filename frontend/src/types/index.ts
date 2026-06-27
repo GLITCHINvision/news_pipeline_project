@@ -1,4 +1,4 @@
-// src/types/index.ts
+
 export interface Article {
   id: string;
   title: string;
