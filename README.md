@@ -247,14 +247,13 @@ Set these **before deploying**:
 
 **On Render (backend):**
 ```
-FRONTEND_URL=https://your-app.vercel.app
-PORT=5000
-NODE_ENV=production
+FRONTEND_URL=https://news-pulse-backend-cvvv.onrender.com
+
 ```
 
 **On Vercel (frontend):**
 ```
-NEXT_PUBLIC_API_URL=https://your-backend.onrender.com
+NEXT_PUBLIC_API_URL=https://news-pipeline-project.vercel.app/
 ```
 
 See [`render.yaml`](./render.yaml) for the full Render service configuration.
