@@ -399,7 +399,15 @@ export default function NewsPulse() {
       const { jobId } = await res.json();
       const pollT = setInterval(async () => {
         try {
-          const s = await (await fetch(`${API}/ingest/status/${jobId}`)).json();
+          const resStatus = await fetch(`${API}/ingest/status/${jobId}`);
+          if (!resStatus.ok) {
+            clearInterval(pollT);
+            clearInterval(phaseT);
+            setIngesting(false);
+            setIngestErr('Job status not found. The server may have restarted or database was cleared.');
+            return;
+          }
+          const s = await resStatus.json();
           if (s.status === 'completed' || s.status === 'failed') {
             clearInterval(pollT); clearInterval(phaseT); setIngesting(false);
             if (s.status === 'completed') {
